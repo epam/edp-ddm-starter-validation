@@ -16,4 +16,5 @@ public class NestedComponentDto {
 
   private String key;
   private String type;
+  private Boolean dayFirst;
 }
