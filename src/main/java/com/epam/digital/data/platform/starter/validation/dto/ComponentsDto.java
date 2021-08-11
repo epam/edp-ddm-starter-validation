@@ -17,6 +17,7 @@ public class ComponentsDto {
 
   private String key;
   private String type;
+  private Boolean dayFirst;
   private List<NestedComponentDto> components;
   private String filePattern;
   private String fileMaxSize;
