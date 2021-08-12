@@ -21,4 +21,5 @@ public class ComponentsDto {
   private List<NestedComponentDto> components;
   private String filePattern;
   private String fileMaxSize;
+  private ValidateComponentDto validate;
 }

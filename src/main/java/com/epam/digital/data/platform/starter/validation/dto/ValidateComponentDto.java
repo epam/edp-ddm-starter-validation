@@ -6,16 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Data transfer object that describe nested components.
+ * Data transfer object that describe validate component.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NestedComponentDto {
+public class ValidateComponentDto {
 
-  private String key;
-  private String type;
-  private Boolean dayFirst;
-  private ValidateComponentDto validate;
+  private boolean required;
+  private String customMessage;
 }
