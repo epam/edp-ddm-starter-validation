@@ -84,7 +84,7 @@ public class FormManagementProviderClientIT {
   @Test
   public void testGetFormById() throws JsonProcessingException {
     var componentsDtos = List.of(
-        new ComponentsDto("fileField", "file", true, null, "application/png", "50MB"));
+        new ComponentsDto("fileField", "file", true, null, "application/png", "50MB", null));
     var formDto = new FormDto(componentsDtos);
     restClientWireMock.addStubMapping(
         stubFor(get(urlPathEqualTo("/formId"))
