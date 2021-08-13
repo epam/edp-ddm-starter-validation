@@ -97,7 +97,7 @@ public class FormValidationServiceImplTest {
   }
 
   @Test
-  public void testFormDataValidationWithInvalidDataWithoutExcludedErrorTypes() {
+  public void testFormDataValidationWithInvalidData() {
     var message = "ValidationError";
     var field = "name";
     var value = "123";
@@ -126,27 +126,7 @@ public class FormValidationServiceImplTest {
   }
 
   @Test
-  public void testFormDataValidationWithInvalidDataWithJustExcludedErrorTypes() {
-    var formErrorDetailDto = new FormErrorDetailDto("ValidationError", "fileName", "123");
-    var formErrorDetailDto2 = new FormErrorDetailDto("ValidationError2", null, null);
-    var formErrorListDto = new FormErrorListDto(List.of(formErrorDetailDto, formErrorDetailDto2));
-    var formId = "testFormId";
-    var formDataDto = FormDataDto.builder().data(new LinkedHashMap<>()).build();
-    var componentsDtos = List.of(new ComponentsDto("fileName", "file", false, null, null, null,
-        new ValidateComponentDto()));
-    doThrow(new BadRequestException(formErrorListDto)).when(client)
-        .validateFormData(eq(formId), any());
-    when(client.getForm(formId)).thenReturn(new FormDto(componentsDtos));
-
-    var formValidationResponseDto = formValidationService.validateForm(formId, formDataDto);
-
-    assertThat(formValidationResponseDto).isNotNull();
-    assertThat(formValidationResponseDto.isValid()).isTrue();
-    assertThat(formValidationResponseDto.getError()).isNull();
-  }
-
-  @Test
-  public void testFormDataValidationWithInvalidDataWithAllowedAndExcludedErrorTypes() {
+  public void testFormDataValidationWithInvalidData2() {
     var formErrorDetailDto = new FormErrorDetailDto("ValidationError2", "name", "321");
     var formErrorDetailDto2 = new FormErrorDetailDto("ValidationError3", "fileName", "543");
     var formErrorListDto = new FormErrorListDto(
@@ -179,12 +159,16 @@ public class FormValidationServiceImplTest {
 
   @Test
   public void testRequiredFileTypeFormComponents() {
-    var mockValidFile = new HashMap<>();
-    mockValidFile.put("id", "id");
-    mockValidFile.put("checksum", "checksum");
-    var mockInvalidFile = new HashMap<>();
-    mockValidFile.put("id", "id");
     var formId = "testFormId";
+    var mockValidFile = new ArrayList<>();
+    var validFile = new HashMap<>();
+    validFile.put("id", "id");
+    validFile.put("checksum", "checksum");
+    mockValidFile.add(validFile);
+    var mockInvalidFile = new ArrayList<>();
+    var invalidFile = new HashMap<>();
+    invalidFile.put("id", "id");
+    mockInvalidFile.add(invalidFile);
     var data = new LinkedHashMap<String, Object>();
     var nestedData = new LinkedHashMap<String, Object>();
     nestedData.put("file1", mockInvalidFile);
@@ -197,7 +181,7 @@ public class FormValidationServiceImplTest {
         new ValidateComponentDto(true, "Required field"));
     var componentsDtos = List
         .of(new ComponentsDto("file3", "file", false, null, null, null,
-                new ValidateComponentDto(true,"Required field")),
+                new ValidateComponentDto(true, "Required field")),
             new ComponentsDto("file4", "file", false, null, null, null,
                 new ValidateComponentDto(true, "Required field")),
             new ComponentsDto("file2", "file", false, List.of(nestedComponent),

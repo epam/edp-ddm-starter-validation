@@ -15,14 +15,13 @@ import com.epam.digital.data.platform.starter.validation.service.FormValidationS
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
@@ -63,7 +62,7 @@ public class FormValidationServiceImpl implements FormValidationService {
         return createFailedValidationResponse(errorsRequiredFileType);
       }
     } catch (BadRequestException ex) {
-      return processException(form, ex.getErrors(), errorsRequiredFileType);
+      return processException(ex.getErrors(), errorsRequiredFileType);
     }
   }
 
@@ -97,21 +96,18 @@ public class FormValidationServiceImpl implements FormValidationService {
     }
   }
 
-  private FormValidationResponseDto processException(FormDto form,
-      FormErrorListDto formErrorListDto, List<FormErrorDetailDto> fileErrors) {
-    var allowedErrors = formErrorListDto.getErrors().stream()
-        .filter(formErrorDetailDto -> isAllowedType(formErrorDetailDto, form))
-        .collect(Collectors.toList());
-    allowedErrors.addAll(fileErrors);
+  private FormValidationResponseDto processException(FormErrorListDto formErrorListDto,
+      Set<FormErrorDetailDto> errors) {
+    errors.addAll(formErrorListDto.getErrors());
 
-    if (allowedErrors.isEmpty()) {
+    if (errors.isEmpty()) {
       return FormValidationResponseDto.builder().isValid(true).error(null).build();
     }
-    return createFailedValidationResponse(allowedErrors);
+    return createFailedValidationResponse(errors);
   }
 
-  private FormValidationResponseDto createFailedValidationResponse(List<FormErrorDetailDto> err) {
-    var errorsListDto = errorMapper.toErrorListDto(new FormErrorListDto(err));
+  private FormValidationResponseDto createFailedValidationResponse(Set<FormErrorDetailDto> err) {
+    var errorsListDto = errorMapper.toErrorListDto(new FormErrorListDto(List.copyOf(err)));
     var error = ValidationErrorDto.builder()
         .traceId(MDC.get(TRACE_ID_KEY))
         .code("FORM_VALIDATION_ERROR")
@@ -119,31 +115,6 @@ public class FormValidationServiceImpl implements FormValidationService {
         .details(errorsListDto)
         .build();
     return FormValidationResponseDto.builder().isValid(false).error(error).build();
-  }
-
-  private boolean isAllowedType(FormErrorDetailDto formErrorDetailDto, FormDto form) {
-    var field = formErrorDetailDto.getField();
-    if (field == null) {
-      return false;
-    }
-    return isAllowedComponentsType(form.getComponents(), field);
-  }
-
-  private boolean isAllowedComponentsType(List<ComponentsDto> formComponents, String field) {
-    for (var component : formComponents) {
-      var nestedComponents = component.getComponents();
-      if (nestedComponents != null) {
-        for (var nestedComponent : nestedComponents) {
-          if (field.equals(nestedComponent.getKey())) {
-            return !FILE_TYPE.equals(nestedComponent.getType());
-          }
-        }
-      }
-      if (field.equals(component.getKey())) {
-        return !FILE_TYPE.equals(component.getType());
-      }
-    }
-    return true;
   }
 
   private Map<String, Boolean> getDayTypeComponents(List<ComponentsDto> formComponents) {
@@ -178,8 +149,8 @@ public class FormValidationServiceImpl implements FormValidationService {
         .format(DATE_FORMAT, dateArr[firstIndex], dateArr[secondIndex], dateArr[YEAR_INDEX]);
   }
 
-  private List<FormErrorDetailDto> getErrorsRequiredFileType(FormDto form, FormDataDto formData) {
-    var errors = new ArrayList<FormErrorDetailDto>();
+  private Set<FormErrorDetailDto> getErrorsRequiredFileType(FormDto form, FormDataDto formData) {
+    var errors = new HashSet<FormErrorDetailDto>();
     var requiredFileKeys = getRequiredFileKeys(form.getComponents());
     var emptyRequiredComponentFileKeys = getEmptyRequiredComponentFileKeys(formData.getData(),
         requiredFileKeys.keySet());
@@ -201,7 +172,7 @@ public class FormValidationServiceImpl implements FormValidationService {
     for (var dataEntry : formData.entrySet()) {
       var key = dataEntry.getKey();
       var value = dataEntry.getValue();
-      if (requiredKeys.contains(key) && isEmptyFileValue(value)) {
+      if (requiredKeys.contains(key) && isListContainEmptyFiles(value)) {
         emptyRequiredComponentFileKeys.put(key, value);
       }
       if (value instanceof List) {
@@ -217,14 +188,29 @@ public class FormValidationServiceImpl implements FormValidationService {
   }
 
   @SuppressWarnings("unchecked")
+  private boolean isListContainEmptyFiles(Object fileValue) {
+    if (fileValue instanceof List) {
+      var fileList = (List<Object>) fileValue;
+      for (Object o : fileList) {
+        if (isEmptyFileValue(o)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
+
+  @SuppressWarnings("unchecked")
   private boolean isEmptyFileValue(Object fileValue) {
-    var fileObj = (Map<String, String>) fileValue;
-    if (Objects.isNull(fileObj) || fileObj.isEmpty()) {
+    if (fileValue instanceof Map) {
+      var fileList = (Map<String, String>) fileValue;
+      var id = fileList.get(FILE_VALUE_ID);
+      var checksum = fileList.get(FILE_VALUE_CHECKSUM);
+      return StringUtils.isEmpty(id) || StringUtils.isEmpty(checksum);
+    } else {
       return true;
     }
-    var id = fileObj.get(FILE_VALUE_ID);
-    var checksum = fileObj.get(FILE_VALUE_CHECKSUM);
-    return StringUtils.isEmpty(id) || StringUtils.isEmpty(checksum);
   }
 
   private Map<String, String> getRequiredFileKeys(List<ComponentsDto> formComponents) {
