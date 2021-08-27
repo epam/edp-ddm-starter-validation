@@ -18,4 +18,6 @@ public class NestedComponentDto {
   private String type;
   private Boolean dayFirst;
   private ValidateComponentDto validate;
+  private String filePattern;
+  private String fileMaxSize;
 }

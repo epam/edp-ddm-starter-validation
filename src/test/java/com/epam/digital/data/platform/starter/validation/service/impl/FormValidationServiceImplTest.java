@@ -69,9 +69,9 @@ public class FormValidationServiceImplTest {
     var formDataDto = FormDataDto.builder().data(data).build();
     var nestedComponentsDto = new ArrayList<NestedComponentDto>();
     var nestedComponent = new NestedComponentDto("specializationDate", "day", false,
-        new ValidateComponentDto());
+        new ValidateComponentDto(), null, null);
     var nestedComponent2 = new NestedComponentDto("file1", "file", false,
-        new ValidateComponentDto());
+        new ValidateComponentDto(), null, null);
     nestedComponentsDto.add(nestedComponent);
     nestedComponentsDto.add(nestedComponent2);
     var componentsDto = new ArrayList<ComponentsDto>();
@@ -134,9 +134,9 @@ public class FormValidationServiceImplTest {
     var formId = "testFormId";
     var formDataDto = FormDataDto.builder().data(new LinkedHashMap<>()).build();
     var nestedComponent = new NestedComponentDto("fullName", "textfield", false,
-        new ValidateComponentDto());
+        new ValidateComponentDto(), null, null);
     var nestedComponent2 = new NestedComponentDto("fileName", "file", false,
-        new ValidateComponentDto());
+        new ValidateComponentDto(), null, null);
     var componentsDtos = List
         .of(new ComponentsDto("name", "textfield", false, null, null, null,
                 new ValidateComponentDto()),
@@ -178,7 +178,7 @@ public class FormValidationServiceImplTest {
     data.put("list", List.of(nestedData));
     var formDataDto = FormDataDto.builder().data(data).build();
     var nestedComponent = new NestedComponentDto("file1", "file", false,
-        new ValidateComponentDto(true, "Required field"));
+        new ValidateComponentDto(true, "Required field"), null, null);
     var componentsDtos = List
         .of(new ComponentsDto("file3", "file", false, null, null, null,
                 new ValidateComponentDto(true, "Required field")),
