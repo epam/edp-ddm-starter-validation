@@ -14,6 +14,5 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ValidateComponentDto {
 
-  private boolean required;
   private String customMessage;
 }
