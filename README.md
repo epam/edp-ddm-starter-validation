@@ -1,12 +1,12 @@
 # ddm-starter-validation
 
-##### Project with configuration for form data validations.
+### Overview
 
-## Usage
-Auto-configuration should be activated through the `@SpringBootApplication` or `@EnableAutoConfiguration` annotation in main class.
+* Project with configuration for form data validations.
 
-##### To start using the library:
-* Specify dependency in your service:
+### Usage
+
+1. Specify dependency in your service:
 
 ```xml
 
@@ -20,3 +20,17 @@ Auto-configuration should be activated through the `@SpringBootApplication` or `
   ...
 </dependencies>
 ```
+
+2. Auto-configuration should be activated through the `@SpringBootApplication`
+  or `@EnableAutoConfiguration` annotation in main class.
+3. Inject`com.epam.digital.data.platform.starter.validation.service.FormValidationService` for form data validation.
+
+### Test execution
+
+* Tests could be run via maven command:
+  * `mvn verify` OR using appropriate functions of your IDE.
+  
+### License
+
+The ddm-starter-validation is released under version 2.0 of
+the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
