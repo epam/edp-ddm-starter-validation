@@ -10,6 +10,7 @@ import com.epam.digital.data.platform.starter.validation.client.exception.dto.Fo
 import com.epam.digital.data.platform.starter.validation.dto.ComponentsDto;
 import com.epam.digital.data.platform.starter.validation.dto.FormDto;
 import com.epam.digital.data.platform.starter.validation.dto.FormValidationResponseDto;
+import com.epam.digital.data.platform.starter.validation.dto.enums.FileType;
 import com.epam.digital.data.platform.starter.validation.mapper.FormValidationErrorMapper;
 import com.epam.digital.data.platform.starter.validation.service.FormValidationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,7 +39,6 @@ public class FormValidationServiceImpl implements FormValidationService {
   private static final int MONTH_INDEX = 1;
   private static final int DAY_INDEX = 2;
   private static final String DATE_FORMAT_REGEX = "(.+-.+-.+)";
-  private static final String FILE_TYPE = "file";
   private static final String FILE_VALUE_ID = "id";
   private static final String FILE_VALUE_CHECKSUM = "checksum";
 
@@ -281,13 +281,14 @@ public class FormValidationServiceImpl implements FormValidationService {
       if (nestedComponents != null) {
         for (var nestedComponent : nestedComponents) {
           var validateComponent = nestedComponent.getValidate();
-          if (FILE_TYPE.equals(nestedComponent.getType()) && Objects.nonNull(validateComponent)) {
+          if (FileType.isValidFileType(nestedComponent.getType()) && Objects
+              .nonNull(validateComponent)) {
             fileKeys.put(nestedComponent.getKey(), validateComponent.getCustomMessage());
           }
         }
       }
       var validateComponent = component.getValidate();
-      if (FILE_TYPE.equals(component.getType()) && Objects.nonNull(validateComponent)) {
+      if (FileType.isValidFileType(component.getType()) && Objects.nonNull(validateComponent)) {
         fileKeys.put(component.getKey(), validateComponent.getCustomMessage());
       }
     }
