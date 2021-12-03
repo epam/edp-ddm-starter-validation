@@ -16,8 +16,8 @@
 
 package com.epam.digital.data.platform.starter.validation.service;
 
-import com.epam.digital.data.platform.integration.ceph.dto.FormDataDto;
 import com.epam.digital.data.platform.starter.validation.dto.FormValidationResponseDto;
+import com.epam.digital.data.platform.storage.form.dto.FormDataDto;
 
 /**
  * The FormValidationService class represents a service that is used for form data validation.

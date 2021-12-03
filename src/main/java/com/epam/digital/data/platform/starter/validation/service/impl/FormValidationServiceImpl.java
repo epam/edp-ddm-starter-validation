@@ -16,7 +16,6 @@
 
 package com.epam.digital.data.platform.starter.validation.service.impl;
 
-import com.epam.digital.data.platform.integration.ceph.dto.FormDataDto;
 import com.epam.digital.data.platform.starter.errorhandling.dto.ValidationErrorDto;
 import com.epam.digital.data.platform.starter.validation.client.FormManagementProviderClient;
 import com.epam.digital.data.platform.starter.validation.client.exception.BadRequestException;
@@ -29,6 +28,7 @@ import com.epam.digital.data.platform.starter.validation.dto.FormValidationRespo
 import com.epam.digital.data.platform.starter.validation.dto.enums.FileType;
 import com.epam.digital.data.platform.starter.validation.mapper.FormValidationErrorMapper;
 import com.epam.digital.data.platform.starter.validation.service.FormValidationService;
+import com.epam.digital.data.platform.storage.form.dto.FormDataDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -16,9 +16,9 @@
 
 package com.epam.digital.data.platform.starter.validation.client;
 
-import com.epam.digital.data.platform.integration.ceph.dto.FormDataDto;
 import com.epam.digital.data.platform.starter.validation.client.config.FeignConfig;
 import com.epam.digital.data.platform.starter.validation.dto.FormDto;
+import com.epam.digital.data.platform.storage.form.dto.FormDataDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

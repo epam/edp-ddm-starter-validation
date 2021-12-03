@@ -25,11 +25,11 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.epam.digital.data.platform.integration.ceph.dto.FormDataDto;
 import com.epam.digital.data.platform.starter.validation.client.exception.BadRequestException;
 import com.epam.digital.data.platform.starter.validation.dto.ComponentsDto;
 import com.epam.digital.data.platform.starter.validation.dto.FormDto;
 import com.epam.digital.data.platform.starter.validation.it.config.WireMockConfig;
+import com.epam.digital.data.platform.storage.form.dto.FormDataDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;

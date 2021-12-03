@@ -24,7 +24,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.epam.digital.data.platform.integration.ceph.dto.FormDataDto;
 import com.epam.digital.data.platform.starter.errorhandling.dto.ErrorDetailDto;
 import com.epam.digital.data.platform.starter.errorhandling.dto.ErrorsListDto;
 import com.epam.digital.data.platform.starter.validation.client.FormManagementProviderClient;
@@ -36,6 +35,7 @@ import com.epam.digital.data.platform.starter.validation.dto.FormDto;
 import com.epam.digital.data.platform.starter.validation.dto.NestedComponentDto;
 import com.epam.digital.data.platform.starter.validation.dto.ValidateComponentDto;
 import com.epam.digital.data.platform.starter.validation.mapper.FormValidationErrorMapper;
+import com.epam.digital.data.platform.storage.form.dto.FormDataDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
