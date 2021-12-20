@@ -17,6 +17,7 @@
 
   <properties>
     <java.version>11</java.version>
+	  <log4j.version>2.16.0</log4j.version>
     <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
     <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
     <spring-cloud-sleuth.version>2.2.6.RELEASE</spring-cloud-sleuth.version>
@@ -44,6 +45,16 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+	    <dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>${log4j.version}</version>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>${log4j.version}</version>
+	    </dependency>
     </dependencies>
   </dependencyManagement>
 
