@@ -23,7 +23,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.epam.digital.data.platform.starter.validation.client.exception.BadRequestException;
 import com.epam.digital.data.platform.starter.validation.dto.ComponentsDto;
@@ -38,15 +38,12 @@ import feign.FeignException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(classes = {WireMockConfig.class})
-@RunWith(SpringRunner.class)
 @EnableAutoConfiguration
 public class FormManagementProviderClientIT {
 

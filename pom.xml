@@ -7,25 +7,25 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.9.RELEASE</version>
+    <version>2.6.1</version>
     <relativePath/>
   </parent>
 
   <groupId>com.epam.digital.data.platform</groupId>
   <artifactId>ddm-starter-validation</artifactId>
-  <version>1.5.1-SNAPSHOT</version>
+  <version>1.5.2-SNAPSHOT</version>
 
   <properties>
     <java.version>11</java.version>
-	  <log4j.version>2.16.0</log4j.version>
+    <log4j.version>2.17.0</log4j.version>
     <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
     <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-    <spring-cloud-sleuth.version>2.2.6.RELEASE</spring-cloud-sleuth.version>
-    <ddm-starter-error-handler.version>1.4.0</ddm-starter-error-handler.version>
+    <ddm-starter-error-handler.version>1.5.1-SNAPSHOT</ddm-starter-error-handler.version>
     <ddm-form-data-storage.version>1.5.0-SNAPSHOT</ddm-form-data-storage.version>
     <mapstruct.version>1.4.2.Final</mapstruct.version>
     <feign-annotation-error-decoder.version>1.4.0</feign-annotation-error-decoder.version>
     <wiremock.version>2.27.2</wiremock.version>
+    <spring.cloud.version>2021.0.0</spring.cloud.version>
 
     <sonar.coverage.exclusions>
       **/com/epam/digital/data/platform/starter/validation/dto/**/*,
@@ -41,7 +41,7 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>Hoxton.SR9</version>
+        <version>${spring.cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
