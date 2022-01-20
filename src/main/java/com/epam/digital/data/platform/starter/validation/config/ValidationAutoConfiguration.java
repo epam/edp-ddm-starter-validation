@@ -16,7 +16,7 @@
 
 package com.epam.digital.data.platform.starter.validation.config;
 
-import com.epam.digital.data.platform.starter.validation.client.FormManagementProviderClient;
+import com.epam.digital.data.platform.integration.formprovider.client.FormManagementProviderClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;

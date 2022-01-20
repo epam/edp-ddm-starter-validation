@@ -16,14 +16,14 @@
 
 package com.epam.digital.data.platform.starter.validation.service.impl;
 
+import com.epam.digital.data.platform.integration.formprovider.client.FormManagementProviderClient;
+import com.epam.digital.data.platform.integration.formprovider.dto.ComponentsDto;
+import com.epam.digital.data.platform.integration.formprovider.dto.FormDto;
+import com.epam.digital.data.platform.integration.formprovider.dto.FormErrorDetailDto;
+import com.epam.digital.data.platform.integration.formprovider.dto.FormErrorListDto;
+import com.epam.digital.data.platform.integration.formprovider.exception.BadRequestException;
 import com.epam.digital.data.platform.starter.errorhandling.dto.ValidationErrorDto;
-import com.epam.digital.data.platform.starter.validation.client.FormManagementProviderClient;
-import com.epam.digital.data.platform.starter.validation.client.exception.BadRequestException;
-import com.epam.digital.data.platform.starter.validation.client.exception.CopyFormDataException;
-import com.epam.digital.data.platform.starter.validation.client.exception.dto.FormErrorDetailDto;
-import com.epam.digital.data.platform.starter.validation.client.exception.dto.FormErrorListDto;
-import com.epam.digital.data.platform.starter.validation.dto.ComponentsDto;
-import com.epam.digital.data.platform.starter.validation.dto.FormDto;
+import com.epam.digital.data.platform.starter.validation.exception.CopyFormDataException;
 import com.epam.digital.data.platform.starter.validation.dto.FormValidationResponseDto;
 import com.epam.digital.data.platform.starter.validation.dto.enums.FileType;
 import com.epam.digital.data.platform.starter.validation.mapper.FormValidationErrorMapper;

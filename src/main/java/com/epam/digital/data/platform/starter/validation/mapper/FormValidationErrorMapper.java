@@ -16,8 +16,8 @@
 
 package com.epam.digital.data.platform.starter.validation.mapper;
 
+import com.epam.digital.data.platform.integration.formprovider.dto.FormErrorListDto;
 import com.epam.digital.data.platform.starter.errorhandling.dto.ErrorsListDto;
-import com.epam.digital.data.platform.starter.validation.client.exception.dto.FormErrorListDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
